@@ -36,6 +36,9 @@ jobs:
         with:
           gradle-version: current
 
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
       - name: Execute Gradle build
         run: ./gradlew build
 
