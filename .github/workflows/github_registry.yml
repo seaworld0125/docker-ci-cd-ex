@@ -65,12 +65,13 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v3
-        with:
-          context: ./
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/test:latest
+        env:
+          REPO: test
+          NAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        run: |
+          DOCKER_BUILDKIT=1 docker build -t $REPO .
+          docker tag $REPO:latest $NAME/$REPO:latest
+          docker push $NAME/$REPO:latest
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
