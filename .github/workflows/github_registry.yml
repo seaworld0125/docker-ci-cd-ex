@@ -39,7 +39,10 @@ jobs:
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
 
-      - name: Execute Gradle build
+      - name: Gradle 테스트
+        run: ./gradlew test
+
+      - name: Gradle 빌드
         run: ./gradlew build
 
       - name: Login to Docker Hub
