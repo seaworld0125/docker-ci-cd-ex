@@ -37,7 +37,7 @@ jobs:
           gradle-version: current
 
       - name: Execute Gradle build
-        run: ./gradle build
+        run: ./gradlew build
 
       - name: Login to Docker Hub
         uses: docker/login-action@v1
