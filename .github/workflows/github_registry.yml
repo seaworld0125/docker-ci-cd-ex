@@ -82,3 +82,13 @@ jobs:
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+        
+  deploy:
+    needs: build
+    name: Deploy
+    runs-on: [ self-hosted, label-dev ]
+    steps:
+      - name: Docker run
+        run: |
+          sudo docker ps -q --filter "name=spring-test" | grep -q . && sudo docker stop "spring-test" && sudo docker rmi  "hoppy/latest"
+          sudo docker run -d --name spring-test --rm -p 8080:8080 hoppy/latest
