@@ -89,8 +89,5 @@ jobs:
     runs-on: [ self-hosted, label-dev ]
     steps:
       - name: Docker run
-        env:
-          NAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         run: |
-          sudo docker ps -q --filter "name=spring-test" | grep -q . && sudo docker stop "spring-test" && sudo docker rmi "${NAME}/test"
-          sudo docker run -d --name spring-test --rm -p 8080:8080 ${NAME}/test
+          sudo sh /home/ec2-user/deploy.sh
